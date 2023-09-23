@@ -142,14 +142,7 @@ require('lazy').setup({
     },
   },
 
-  {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
-    end,
-  },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
   {
     -- Set lualine as statusline
@@ -285,6 +278,25 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+-- A helper function to check if it is day or night
+local function timeofday()
+  local t = os.date("*t")
+  local hour = t.hour
+  if hour >= 6 and hour < 18 then
+    return "day"
+  else
+    return "night"
+  end
+end
+
+-- [[ Configure theme ]]
+require("catppuccin").setup({
+    flavour = timeofday() == "day" and "latte" or "mocha", -- latte, frappe, macchiato, mocha
+})
+
+-- setup must be called before loading
+vim.cmd.colorscheme "catppuccin"
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -537,3 +549,4 @@ cmp.setup {
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
