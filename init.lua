@@ -151,7 +151,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'catppuccin',
         component_separators = '|',
         section_separators = '',
       },
@@ -279,20 +279,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
--- A helper function to check if it is day or night
-local function timeofday()
-  local t = os.date("*t")
-  local hour = t.hour
-  if hour >= 6 and hour < 18 then
-    return "day"
-  else
-    return "night"
-  end
-end
-
 -- [[ Configure theme ]]
 require("catppuccin").setup({
-    flavour = timeofday() == "day" and "latte" or "mocha", -- latte, frappe, macchiato, mocha
+    flavour = "frappe"
 })
 
 -- setup must be called before loading
