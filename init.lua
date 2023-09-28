@@ -248,6 +248,15 @@ vim.o.smartcase = true
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
 
+-- Colorcolumn
+vim.o.colorcolumn = "80"
+
+-- Default tab width
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
+vim.o.smarttab = true
+
 -- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
