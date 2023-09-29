@@ -288,13 +288,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
--- [[ Configure theme ]]
-require("catppuccin").setup({
-    flavour = "frappe"
-})
-
--- setup must be called before loading
-vim.cmd.colorscheme "catppuccin"
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
