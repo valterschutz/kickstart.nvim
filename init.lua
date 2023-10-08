@@ -257,6 +257,10 @@ vim.o.smarttab = true
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
+-- Split below and right
+vim.o.splitbelow = true
+vim.o.splitright = true
+
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
