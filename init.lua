@@ -130,6 +130,7 @@ require('lazy').setup({
 
   { import = 'custom.plugins' },
   {'akinsho/toggleterm.nvim', version = "*", config = true},
+  {'ggandor/leap.nvim', dependencies = {'tpope/vim-repeat'}}
 }, {})
 
 -- [[ Setting options ]]
@@ -444,5 +445,8 @@ require("toggleterm").setup{
   persist_mode = false,
   direction = "float"
 }
+
+-- Leap, like sneak
+require('leap').add_default_mappings(true)
 
 -- vim: ts=2 sts=2 sw=2 et
