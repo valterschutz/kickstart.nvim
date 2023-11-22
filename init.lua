@@ -130,7 +130,9 @@ require('lazy').setup({
 
   { import = 'custom.plugins' },
   {'akinsho/toggleterm.nvim', version = "*", config = true},
-  {'ggandor/leap.nvim', dependencies = {'tpope/vim-repeat'}}
+  {'ggandor/leap.nvim', dependencies = {'tpope/vim-repeat'}},
+  'mfussenegger/nvim-dap',
+  { "rcarriga/nvim-dap-ui", dependencieS = {"mfussenegger/nvim-dap"} }
 }, {})
 
 -- [[ Setting options ]]
@@ -448,5 +450,106 @@ require("toggleterm").setup{
 
 -- Leap, like sneak
 require('leap').add_default_mappings(true)
+
+-- DAP
+local dap = require("dap")
+dap.adapters.python = {
+  type = 'executable';
+  command = 'python',
+  args = { '-m', 'debugpy.adapter' };
+}
+dap.adapters.cppdbg = {
+  id = 'cppdbg',
+  type = 'executable',
+  command = os.getenv("HOME") .. '/.vscode/extensions/ms-vscode.cpptools-1.18.5-linux-x64/debugAdapters/bin/OpenDebugAD7',
+}
+dap.configurations.python = {
+  {
+    type = 'python';
+    request = 'launch';
+    name = "Launch file";
+    program = "${file}";
+    pythonPath = function()
+      return 'python'
+    end;
+  }
+}
+dap.configurations.cpp = {
+  {
+    name = "Launch file",
+    type = "cppdbg",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopAtEntry = true,
+    setupCommands = {
+      {
+         text = '-enable-pretty-printing',
+         description =  'enable pretty printing',
+         ignoreFailures = false
+      },
+    },
+  },
+  {
+    name = 'Attach to gdbserver :1234',
+    type = 'cppdbg',
+    request = 'launch',
+    MIMode = 'gdb',
+    miDebuggerServerAddress = 'localhost:1234',
+    miDebuggerPath = '/usr/bin/gdb',
+    cwd = '${workspaceFolder}',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    setupCommands = {
+      {
+         text = '-enable-pretty-printing',
+         description =  'enable pretty printing',
+         ignoreFailures = false
+      },
+    },
+  },
+}
+dap.adapters["local-lua"] = {
+  type = "executable",
+  command = "node",
+  args = {
+    os.getenv("HOME") .. "/Applications/local-lua-debugger-vscode/extension/debugAdapter.js"
+  },
+  enrich_config = function(config, on_config)
+    if not config["extensionPath"] then
+      local c = vim.deepcopy(config)
+      -- 💀 If this is missing or wrong you'll see 
+      -- "module 'lldebugger' not found" errors in the dap-repl when trying to launch a debug session
+      c.extensionPath = os.getenv("HOME") .. "/Applications/local-lua-debugger-vscode"
+      on_config(c)
+    else
+      on_config(config)
+    end
+  end,
+}
+dap.configurations.lua = {
+  {
+    name = 'Current file (local-lua-dbg, lua)',
+    type = 'local-lua',
+    request = 'launch',
+    cwd = '${workspaceFolder}',
+    program = {
+      lua = 'lua',
+      file = '${file}',
+    },
+    args = {},
+  },
+}
+vim.keymap.set('n', '<leader>db', require('dap').toggle_breakpoint, {desc = {'[D]ebugger: [B]reakpoint'}})
+vim.keymap.set('n', '<leader>dc', require('dap').continue, {desc = {'[D]ebugger: [C]ontinue'}})
+vim.keymap.set('n', '<leader>do', require('dap').step_over, {desc = {'[D]ebugger: Step [O]ver'}})
+vim.keymap.set('n', '<leader>di', require('dap').step_into, {desc = {'[D]ebugger: Step [I]nto'}})
+vim.keymap.set('n', '<leader>dr', require('dap').repl.open, {desc = {'[D]ebugger: [R]EPL'}})
+
+require("dapui").setup()
+vim.keymap.set('n', '<leader>du', require('dapui').toggle, {desc = {'[D]ebugger: [U]I Toggle'}})
 
 -- vim: ts=2 sts=2 sw=2 et
