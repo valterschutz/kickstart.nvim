@@ -187,10 +187,14 @@ vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
 
-vim.keymap.set({'n'}, '<C-d>', '<C-d>zz')
-vim.keymap.set({'n'}, '<C-u>', '<C-u>zz')
-vim.keymap.set({'n'}, 'n', 'nzz')
-vim.keymap.set({'n'}, 'N', 'Nzz')
+vim.keymap.set({'n'}, '<C-d>', '<C-d>zz', { silent = true, noremap = true} )
+vim.keymap.set({'n'}, '<C-u>', '<C-u>zz', { silent = true, noremap = true} )
+vim.keymap.set({'n'}, 'n', 'nzz', { silent = true, noremap = true} )
+vim.keymap.set({'n'}, 'N', 'Nzz', { silent = true, noremap = true} )
+vim.keymap.set({'n'}, '<C-h>', '<C-w>h', { silent = true, noremap = true} )
+vim.keymap.set({'n'}, '<C-l>', '<C-w>l', { silent = true, noremap = true} )
+vim.keymap.set({'n'}, '<C-j>', '<C-w>j', { silent = true, noremap = true} )
+vim.keymap.set({'n'}, '<C-k>', '<C-w>k', { silent = true, noremap = true} )
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
