@@ -132,7 +132,7 @@ require('lazy').setup({
   {'akinsho/toggleterm.nvim', version = "*", config = true},
   {'ggandor/leap.nvim', dependencies = {'tpope/vim-repeat'}},
   'mfussenegger/nvim-dap',
-  { "rcarriga/nvim-dap-ui", dependencieS = {"mfussenegger/nvim-dap"} }
+  { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap"} }
 }, {})
 
 -- [[ Setting options ]]
