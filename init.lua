@@ -145,6 +145,9 @@ vim.wo.number = true
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
@@ -184,12 +187,17 @@ vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
 
+vim.keymap.set({'n'}, '<C-d>', '<C-d>zz')
+vim.keymap.set({'n'}, '<C-u>', '<C-u>zz')
+vim.keymap.set({'n'}, 'n', 'nzz')
+vim.keymap.set({'n'}, 'N', 'Nzz')
+
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Open Neovim config file
-vim.keymap.set('n', '<leader>ec', ':e $MYVIMRC<CR>', { desc = '[e]dit [c]onfig]' })
+-- vim.keymap.set('n', '<leader>ec', ':e $MYVIMRC<CR>', { desc = '[e]dit [c]onfig]' })
 
 -- [[ Highlight on yank ]]
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
