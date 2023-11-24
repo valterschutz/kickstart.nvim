@@ -187,6 +187,8 @@ vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
 
+vim.keymap.set({'n','v'}, '<leader>p', "\"_dP", {silent = true, noremap = true} )
+
 vim.keymap.set({'n'}, '<C-d>', '<C-d>zz', { silent = true, noremap = true} )
 vim.keymap.set({'n'}, '<C-u>', '<C-u>zz', { silent = true, noremap = true} )
 vim.keymap.set({'n'}, 'n', 'nzz', { silent = true, noremap = true} )
