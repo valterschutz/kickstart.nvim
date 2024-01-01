@@ -129,6 +129,7 @@ require('lazy').setup({
   },
 
   { import = 'custom.plugins' },
+
   {'akinsho/toggleterm.nvim', version = "*", config = true},
   {'ggandor/leap.nvim', dependencies = {'tpope/vim-repeat'}},
   'mfussenegger/nvim-dap',
@@ -197,13 +198,15 @@ vim.keymap.set({'n'}, '<C-h>', '<C-w>h', { silent = true, noremap = true} )
 vim.keymap.set({'n'}, '<C-l>', '<C-w>l', { silent = true, noremap = true} )
 vim.keymap.set({'n'}, '<C-j>', '<C-w>j', { silent = true, noremap = true} )
 vim.keymap.set({'n'}, '<C-k>', '<C-w>k', { silent = true, noremap = true} )
+vim.keymap.set({'n'}, '<C-q>', '<C-w>q', { silent = true, noremap = true} )
+vim.keymap.set({'n'}, '<C-s>', ':w<CR>', { silent = true, noremap = true} )
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Open Neovim config file
--- vim.keymap.set('n', '<leader>ec', ':e $MYVIMRC<CR>', { desc = '[e]dit [c]onfig]' })
+vim.keymap.set('n', '<leader>ec', ':e $MYVIMRC<CR>', { desc = '[e]dit [c]onfig]' })
 
 -- [[ Highlight on yank ]]
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
